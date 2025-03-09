@@ -1,0 +1,49 @@
+{
+  "name": "agent_notification",
+  "productName": "Agent Notification",
+  "version": "1.0.1",
+  "description": "Agent Notification",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder build",
+    "build": "electron-builder",
+    "build-signed": "electron-builder -c.win.certificateSubjectName= ",
+    "electron-packager": "electron-packager ./ AgentNotification --platform=win32 --arch=x64",
+    "electron-packager2": "electron-packager ./ AgentNotification --platform=win32 --arch=x64 --electron-version=1.4.3",
+    "setup": "electron-installer-windows --src dist/AgentNotification-win32-x64/ --dest dist/installers/"
+  },
+  "build": {
+    "productName": "Agent Notification",
+    "appId": "rmutl.se.notification",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/agent_notification.ico"
+    },
+    "nsis": {
+      "installerIcon": "assets/agent_notification.ico",
+      "uninstallerIcon": "assets/agent_notification.ico",
+      "uninstallDisplayName": "Agent Notification Desktop",
+      "license": "assets/license.txt",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "author": "Thanit Keatkaew, SE RMUTL",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^32.2.0",
+    "electron-builder": "^25.1.8",
+    "electron-packager": "^17.1.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "easytimer.js": "^4.6.0",
+    "jquery": "^3.7.1",
+    "path": "^0.12.7",
+    "ws": "^8.18.0"
+  }
+}
