@@ -249,7 +249,7 @@
         var formData = new FormData();
         formData.append("AgentCode", agentData.agent_code);
         formData.append("AgentName", agentData.AgentName);
-        formData.append("IsLogin", "1");  // #Hardcode, when change agent status IsLogin should set to "1"
+        formData.append("IsLogin", "1"); // #Hardcode, when change agent status IsLogin should set to "1"
         formData.append("AgentStatus", selectedValue);
         formData.append("Team", "0"); // #Hardcode, for your Team Number
         formData.append("AgentStatusCode", "4"); // #Hardcode AgentStatusCode = 4
@@ -373,15 +373,20 @@
 
                   var formData = new FormData();
                   formData.append("AgentCode", agentData.agent_code);
-                  formData.append("IsLogin", "0");
+                  formData.append("AgentName", agentData.AgentName);
+                  formData.append("AgentStatus", "1"); //Hardcode to Avaliable for initial status
+                  formData.append("Queue", "0"); //Hardcode Team No.
+                  formData.append("AgentStatusCode", "4"); //Hardcode to "4"
+                  formData.append("IsLogin", "1");//Hardcode set to Login
 
-                  //-- endpoint-api request for Logout
+                  // alert("Selected Text: " + selectedText + " Value: " + selectedValue);
+
+                  //-- endpoint-api request
                   $.ajax({
                     type: "POST",
                     url: APIServer + "/postOnlineAgentStatus",
                     headers: {
-                      Authorization: "Bearer " + serverKey,
-                    },
+                      Authorization: "Bearer " + serverKey,                    },
                     data: formData,
                     success: function (result) {
                       console.log("postOnlineAgentStatus: " + result);
@@ -391,6 +396,7 @@
                     //dataType: "json",
                     //contentType: 'multipart/form-data',
                   });
+
                 } else {
                   console.log(
                     "[" + response.data.agent_code + "] Agent not loging"
@@ -576,26 +582,25 @@
         $("#help-and-support").hide();
         $("#currentStatus").hide();
 
-        //-- parse-server-api request
+        var formData = new FormData();
+        formData.append("AgentCode", agentData.agent_code);
+        formData.append("IsLogin", "0");
+
+        //-- endpoint-api request for Logout
         $.ajax({
           type: "POST",
-          url: parseServer + "/functions/postOnlineAgentListByTeam",
+          url: APIServer + "/postOnlineAgentStatus",
           headers: {
-            "X-Parse-Application-Id": devAPI.appId,
-            "X-Parse-Master-Key": devAPI.masterKey,
+            Authorization: "Bearer " + serverKey,
           },
-          //data: formData2,
-          data: {
-            AgentCode: agentData.agent_code,
-            AgentName: agentData.AgentName,
-            Team: "0",
-            AgentStatus: "1",
-            AgentStatusCode: "4",
-            IsLogin: "0",
-          },
+          data: formData,
           success: function (result) {
-            console.log("postOnlineAgentListByTeam: " + result);
+            console.log("postOnlineAgentStatus: " + result);
           },
+          processData: false,
+          contentType: false,
+          //dataType: "json",
+          //contentType: 'multipart/form-data',
         });
 
         //-------- Web Socket ----------
