@@ -10,8 +10,8 @@ var apiport = 4000;
 var dashboard_port = 4001;
 
 var cert_options = {
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.crt')
+  key: fs.readFileSync('team0-engse214.net.key'),
+  cert: fs.readFileSync('team0-engse214.net.crt')
 };
 
 var trustProxy = true;
