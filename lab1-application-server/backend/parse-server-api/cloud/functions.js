@@ -37,22 +37,22 @@ Parse.Cloud.define("postOnlineAgentListByTeam", async (request) => {
     Parameter:
             AgentCode: AgentCode,
             AgentName: AgentName,
-            Queue: Queue,
+            Team: Team,
             AgentStatus: AgentStatus,
             AgentStatusCode: AgentStatusCode,
             IsLogin: IsLogin
     */
   let AgentCode = request.params.AgentCode;
   let AgentName = request.params.AgentName;
-  let Queue = request.params.Queue;
+  let Team = request.params.Team;
   let AgentStatus = request.params.AgentStatus;
   let AgentStatusCode = request.params.AgentStatusCode;
   let IsLogin = request.params.IsLogin;
   let startedAt = new Date();
 
-  let QueueInt = 0;
+  let TeamInt = 0;
 
-  if (Queue != undefined) QueueInt = parseInt(Queue); //long
+  if (Team != undefined) TeamInt = parseInt(Team); //long
 
   let Teams = [
     "Team0",
@@ -66,13 +66,13 @@ Parse.Cloud.define("postOnlineAgentListByTeam", async (request) => {
     "Team8",
     "Team9",
   ];
-  let QueueText = Teams[QueueInt];
+  let TeamText = Teams[TeamInt];
 
   let returnCode = 0;
   //------------------
   console.log("AgentCode: " + AgentCode);
   console.log("AgentName: " + AgentName);
-  console.log("QueueText: " + QueueText);
+  console.log("TeamText: " + TeamText);
   console.log("AgentStatus: " + AgentStatus);
   console.log("AgentStatusCode: " + AgentStatusCode);
   console.log("IsLogin: " + IsLogin);
@@ -126,7 +126,7 @@ Parse.Cloud.define("postOnlineAgentListByTeam", async (request) => {
         else returnCode = 11;
         if (AgentName != undefined) onlineagentlist.set("AgentName", AgentName);
         else returnCode = 12;
-        if (Queue != undefined) onlineagentlist.set("Queue", QueueText);
+        if (Team != undefined) onlineagentlist.set("Team", TeamText);
         else returnCode = 13;
         if (AgentStatus != undefined)
           onlineagentlist.set("AgentStatus", AgentStatus);
@@ -146,7 +146,7 @@ Parse.Cloud.define("postOnlineAgentListByTeam", async (request) => {
 
         if (AgentName != undefined) results.set("AgentName", AgentName);
         else returnCode = 1;
-        if (Queue != undefined) results.set("Queue", QueueText);
+        if (Team != undefined) results.set("Team", TeamText);
         else returnCode = 2;
         if (AgentStatus != undefined) results.set("AgentStatus", AgentStatus);
         else returnCode = 3;

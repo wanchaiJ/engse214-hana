@@ -13,8 +13,8 @@ const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 var apiport = 4000;
 
 var options = {
-  key: fs.readFileSync("server.key"),
-  cert: fs.readFileSync("server.crt"),
+  key: fs.readFileSync("team0-engse214.net.key"),
+  cert: fs.readFileSync("team0-engse214.net.crt"),
 };
 
 const config = {
